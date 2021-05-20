@@ -22,3 +22,9 @@ ui-a3-seletor/.project
 ui-a3-seletor/.settings/
 
 ui-a3-seletor/test-output/
+
+.settings/
+
+.project
+
+ui-a3-seletor/config/drivers_carregados.properties
