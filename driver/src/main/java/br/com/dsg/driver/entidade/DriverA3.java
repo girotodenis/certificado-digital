@@ -1,7 +1,16 @@
 package br.com.dsg.driver.entidade;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.FileSystem;
+import java.nio.file.FileSystems;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 
 import br.gov.dsg.certificado.entidades.Local;
 
@@ -26,13 +35,28 @@ public class DriverA3 implements Local {
 		return padrao;
 	}
 	
-	public InputStream config() {
-		String pkcs11ConfigSettings = null;
-		pkcs11ConfigSettings = String.format("name = %s\nlibrary = %s\nslot = 0", nome, path);
-		byte[] pkcs11ConfigBytes = pkcs11ConfigSettings.getBytes();
-		return new ByteArrayInputStream(pkcs11ConfigBytes);
+	public String config() {
+		try {
+			String pkcs11ConfigSettings = String.format("name = %s\nlibrary = %s\nslot = 0", nome, path);
+			Path filePath = criarCfgPkcs11(pkcs11ConfigSettings);
+			return filePath.toString();
+		} catch (Exception e) {
+			throw new RuntimeException(e.getLocalizedMessage(), e );
+		}
 	}
 
+	private Path criarCfgPkcs11(String pkcs11ConfigSettings) throws IOException {
+		File cfg = new File("./config");
+		if(!cfg.exists()) {
+			cfg.mkdirs();
+		}
+		Path a3 = Paths.get(cfg.getAbsolutePath(),"a3");
+		Path filePath = a3.resolve("pkcs11.cfg");
+		Files.createFile(filePath);
+		Files.writeString(filePath, pkcs11ConfigSettings, StandardOpenOption.TRUNCATE_EXISTING);
+		return filePath;
+	}
+	
 	public String getNome() {
 		return nome;
 	}

@@ -1,12 +1,10 @@
 package br.gov.dsg.certificado.entidades;
 
-import java.io.InputStream;
-
 public interface Local {
 	
 	
 	
-	public InputStream config();
+	public String config();
 
 	public String getNome();
 

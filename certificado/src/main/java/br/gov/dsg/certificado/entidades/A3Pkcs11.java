@@ -31,7 +31,9 @@ public class A3Pkcs11 implements TipoKeyStore{
 	public void load(char[] senha, Local driver, InputStream fileCertificado) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		
 	
-		Provider provider = new sun.security.pkcs11.SunPKCS11(driver.config());
+		//Provider provider = new sun.security.pkcs11.SunPKCS11(driver.config());
+		Provider provider = Security.getProvider("SunPKCS11");
+		provider = provider.configure(driver.config());
 		Security.addProvider(provider);
 		keyStore = KeyStore.getInstance("pkcs11", provider);
 		keyStore.load(null, senha);
