@@ -50,9 +50,16 @@ public class DriverA3 implements Local {
 		if(!cfg.exists()) {
 			cfg.mkdirs();
 		}
-		Path a3 = Paths.get(cfg.getAbsolutePath(),"a3");
-		Path filePath = a3.resolve("pkcs11.cfg");
-		Files.createFile(filePath);
+		
+		File pkcs11 = new File(cfg, "pkcs11.cfg");
+		if(pkcs11.exists()) {
+			pkcs11.delete();
+		}
+		
+		pkcs11 = new File(cfg, "pkcs11.cfg");
+		pkcs11.createNewFile();
+		
+		Path filePath = Paths.get(pkcs11.getAbsolutePath());
 		Files.writeString(filePath, pkcs11ConfigSettings, StandardOpenOption.TRUNCATE_EXISTING);
 		return filePath;
 	}
