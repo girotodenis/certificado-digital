@@ -34,6 +34,7 @@ public class CertificadoTest {
 			System.out.println( String.format( "emitidoPara = %s", cert.emitidoPara() ) );
 			System.out.println( String.format( "getCpf = %s", cert.pessoaInfo().getCpf() ) );
 			System.out.println( String.format( "emitidoPor = %s", cert.emitidoPor() ) );
+			System.out.println( String.format( "getCadeiaCertificado = %s", cert.getCadeiaCertificado() ) );
 		});
 		
 		Assert.assertTrue(service.certificados().get(0).isValido());
@@ -58,6 +59,7 @@ public class CertificadoTest {
 			System.out.println( String.format( "emitidoPara = %s", cert.emitidoPara() ) );
 			System.out.println( String.format( "getCpf = %s", cert.pessoaInfo().getCpf() ) );
 			System.out.println( String.format( "emitidoPor = %s", cert.emitidoPor() ) );
+			System.out.println( String.format( "getCadeiaCertificado = %s", cert.getCadeiaCertificado() ) );
 		});
 		
 		Assert.assertTrue(service.certificados().get(0).isValido());
