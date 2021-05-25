@@ -79,6 +79,18 @@ public class Certificado {
 		return null;
 	}
 	
+	public String getCadeiaCertificado() throws IllegalStateException {
+		String cadeiaCertificado = null;
+		for (Certificate certificate : getCertificateChain()) {
+			//Pega a cadeia de certificado do certificado que assinou o documento
+			String cn = extractedCN(((X509Certificate)certificate).getSubjectDN().toString());
+			if(this.emitidoPara().equalsIgnoreCase(cn)) {
+				cadeiaCertificado = convertToBase64PEMString(certificate, true);
+			}
+		}
+		return cadeiaCertificado;
+	}
+	
 	public boolean isValido() {
 		Date notBefore =this.certificate.getNotBefore();
 		Date notAfter = this.certificate.getNotAfter();
@@ -103,25 +115,17 @@ public class Certificado {
 	public String emitidoPara() {
 		if (this.certificate.getSubjectDN() != null) {
 			String dn = this.certificate.getSubjectDN().toString();
-			dn = dn.substring(dn.indexOf("CN=") + 3);
-			if (dn.indexOf(',') == -1) {
-				return dn;
-			}
-			dn = dn.substring(0, dn.indexOf(','));
+			dn = extractedCN(dn);
 			return dn;
 		}
 		return null;
 	}
-	
+
 	
 	public String emitidoPor() {
 		if (this.certificate.getIssuerDN() != null) {
-			String dn = this.certificate.getSubjectDN().toString();
-			dn = dn.substring(dn.indexOf("CN=") + 3);
-			if (dn.indexOf(',') == -1) {
-				return dn;
-			}
-			dn = dn.substring(0, dn.indexOf(','));
+			String dn = this.certificate.getIssuerDN().toString();
+			dn = extractedCN(dn);
 			return dn;
 		}
 		return null;
@@ -129,6 +133,15 @@ public class Certificado {
 	
 	public PessoaInfo pessoaInfo() {
 		return pessoa;
+	}
+	
+	private String extractedCN(String dn) {
+		dn = dn.substring(dn.indexOf("CN=") + 3);
+		if (dn.indexOf(',') == -1) {
+			return dn;
+		}
+		dn = dn.substring(0, dn.indexOf(','));
+		return dn;
 	}
 	
 	/**
@@ -139,16 +152,30 @@ public class Certificado {
 	 * @throws CertificateEncodingException
 	 */
 	public String convertToPEMString() {
+		return convertToBase64PEMString(this.certificate, false);
+	}
+	
+	/**
+	 * Converts a {@link X509Certificate} instance into a Base-64 encoded string (PEM format).
+	 *
+	 * @param x509Cert A X509 Certificate instance
+	 * @return PEM formatted String
+	 * @throws CertificateEncodingException
+	 */
+	private String convertToBase64PEMString(Certificate x509Cert, boolean removeBeginEnd) {
 	    try {
-			
+	    	String base64 =  "";//Base64.getEncoder().encodeToString(x509Cert.getEncoded());
 	    	StringWriter sw = new StringWriter();
 	    	try (PEMWriter pw = new PEMWriter(sw)) {
-	    		pw.writeObject(this.certificate);
+	    		pw.writeObject(x509Cert);
 	    	}
-	    	return sw.toString();
-//	    			.replaceAll("\n", "")
-//	    			.replaceAll("-----BEGIN CERTIFICATE-----", "")
-//	    			.replaceAll("-----END CERTIFICATE-----", "");
+	    	base64 = sw.toString();
+	    	if(removeBeginEnd) {
+	    		base64 = base64.replaceAll("\n", "")
+	    				.replaceAll("-----BEGIN CERTIFICATE-----", "")
+	    				.replaceAll("-----END CERTIFICATE-----", "");
+	    	}
+	    	return base64;
 		} catch (Exception e) {
 			throw new IllegalStateException("Não foi possivel gerar cadeia de certificado: " + e.getMessage());
 		}

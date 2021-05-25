@@ -16,13 +16,14 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import br.com.dsg.driver.IDriverServices;
+import br.com.dsg.driver.entidade.DriverA3;
 import br.gov.dsg.certificado.CarregadorKeyStore;
-import br.gov.dsg.certificado.entidades.Local;
+import br.gov.dsg.certificado.entidades.A3Pkcs11;
+import br.gov.dsg.certificado.entidades.LocalDriver;
 import br.gov.dsg.certificado.entidades.TipoKeyStore;
 
 public class SwingSelecaoTipoCertificadoHandler implements CarregadorKeyStore, ItemListener, ActionListener  {
 	
-	private TipoKeyStore tipo;
 	private IDriverServices service;
 	
     static JLabel  l1; 
@@ -30,9 +31,8 @@ public class SwingSelecaoTipoCertificadoHandler implements CarregadorKeyStore, I
     static JTextField tf; 
   
     
-	public SwingSelecaoTipoCertificadoHandler(TipoKeyStore tipo, IDriverServices service) {
+	public SwingSelecaoTipoCertificadoHandler(IDriverServices service) {
 		super();
-		this.tipo = tipo;
 		this.service = service;
 	}
 	
@@ -73,9 +73,10 @@ public class SwingSelecaoTipoCertificadoHandler implements CarregadorKeyStore, I
 
 	@Override
 	public TipoKeyStore tipoKeyStore() {
+		TipoKeyStore tipo = null;
 		
         String s1[] = service.todos().stream()
-        		.map(Local::getPath)
+        		.map(DriverA3::getPath)
     			.toArray(String[]::new); 
         
         JPanel p = new JPanel(new GridLayout(6,2)); 
@@ -118,7 +119,7 @@ public class SwingSelecaoTipoCertificadoHandler implements CarregadorKeyStore, I
         Object[] stringArray = { "Confirmar", "Cancelar" };
         if (JOptionPane.showOptionDialog(null, p, "Certificado Digital", 0, 3, null, stringArray, obj) == 0){
 			try {
-				tipo.load(passwordField.getPassword(), service.driverPadrao(), null);
+				tipo = new A3Pkcs11(passwordField.getPassword(), service.driverPadrao());
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

@@ -5,7 +5,6 @@ import java.util.List;
 import br.com.dsg.driver.entidade.DriverA3;
 import br.com.dsg.driver.resoures.Resource;
 import br.com.dsg.driver.resoures.ResourceProperties;
-import br.gov.dsg.certificado.entidades.Local;
 
 public class DriverService implements IDriverServices {
 
@@ -33,7 +32,7 @@ public class DriverService implements IDriverServices {
 	 * @return
 	 */
 	@Override
-	public List<Local> todos() {
+	public List<DriverA3> todos() {
 
 		return resource.todosDrivers();
 	}
@@ -43,19 +42,19 @@ public class DriverService implements IDriverServices {
 	 * @return
 	 */
 	@Override
-	public Local driverPadrao() {
+	public DriverA3 driverPadrao() {
 		
-		List<Local> lista = todos();
-		Local driverPadrao = null;
-		for (Local driverA3 : lista) {
-			if (((DriverA3)driverA3).isPadrao()) {
+		List<DriverA3> lista = todos();
+		DriverA3 driverPadrao = null;
+		for (DriverA3 driverA3 : lista) {
+			if ( driverA3.isPadrao() ) {
 				driverPadrao = driverA3;
 			}
 		}
 		
 		if (driverPadrao == null) {
 			driverPadrao = lista.get(0);
-			((DriverA3)driverPadrao).defineComoPadrao();
+			driverPadrao.defineComoPadrao();
 			resource.salvarPadrao(driverPadrao);
 		}
 		
@@ -67,9 +66,9 @@ public class DriverService implements IDriverServices {
 	 * @param driver
 	 */
 	@Override
-	public void driverPadrao(Local driver) {
+	public void driverPadrao(DriverA3 driver) {
 		
-		((DriverA3)driver).defineComoPadrao();
+		driver.defineComoPadrao();
 		resource.salvarPadrao(driver);
 	}
 	
@@ -78,8 +77,7 @@ public class DriverService implements IDriverServices {
 		resource.adicionar(text);
 	}
 
-	@Override
-	public void remover(Local item) {
+	public void remover(DriverA3 item) {
 		if(todos().size()>1) {
 			resource.remover(item);
 		}
