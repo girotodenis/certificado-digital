@@ -12,15 +12,17 @@ https://docs.oracle.com/en/java/javase/11/security/pkcs11-reference-guide1.html#
 	Consulte Configuração de Atributos	
 	Especifica atributos PKCS # 11 adicionais que devem ser definidos ao criar objetos-chave PKCS # 11. Isso torna possível acomodar tokens que requerem atributos específicos.
 	
-##description	
-	Descrição desta instância do provedor	
-	Especifica a string que o Provider.getInfo()método da instância do provedor retorna. Se nenhuma string for especificada, uma descrição padrão será retornada.
-	
+
 ##disabledMechanisms	
 	Lista entre chaves e espaços em branco separados de mecanismos PKCS # 11 para desativar	
 	Especifica a lista de mecanismos PKCS # 11 que esta instância do provedor deve ignorar. O provedor ignora qualquer mecanismo listado, mesmo que seja compatível com o token e o provedor SunPKCS11. Especifique as strings SecureRandome KeyStoredesabilite esses serviços.
 	No máximo, você pode especificar um enabledMechanismsou disabledMechanisms. Se você não especificar nenhum dos dois, os mecanismos habilitados serão aqueles com suporte tanto do provedor SunPKCS11 (consulte Algoritmos Suportados do Provedor SunPKCS11 ) e do token PKCS # 11.
 
+##description	
+	Descrição desta instância do provedor	
+	Especifica a string que o Provider.getInfo()método da instância do provedor retorna. Se nenhuma string for especificada, uma descrição padrão será retornada.
+	
+	
 ##enabledMechanisms	
 	Lista delimitada por chaves e separados por espaços em branco de mecanismos PKCS # 11 para ativar	
 	Especifica a lista de mecanismos PKCS # 11 que esta instância do provedor deve usar, desde que sejam suportados pelo provedor SunPKCS11 e pelo token PKCS # 11. Todos os outros mecanismos são ignorados. Cada entrada na lista é o nome de um mecanismo PKCS # 11. Aqui está um exemplo que lista dois mecanismos PKCS # 11.
