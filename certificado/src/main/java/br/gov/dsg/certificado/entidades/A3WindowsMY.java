@@ -1,7 +1,6 @@
 package br.gov.dsg.certificado.entidades;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
@@ -25,11 +24,11 @@ public class A3WindowsMY implements TipoKeyStore{
 	
 	
 	public A3WindowsMY() throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-		load(null, null, null);
+		load(null);
 	}
 	
 	@Override
-	public void load(char[] senha, Local driver, InputStream fileCertificado) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public void load(char[] senha) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		try {
 			keyStore = KeyStore.getInstance(MS_TYPE, MS_PROVIDER);
 			Provider provider = keyStore.getProvider();

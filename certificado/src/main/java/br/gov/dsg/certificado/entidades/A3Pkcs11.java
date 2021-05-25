@@ -1,8 +1,6 @@
 package br.gov.dsg.certificado.entidades;
 
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.security.KeyStore;
 import java.security.KeyStore.PrivateKeyEntry;
 import java.security.KeyStoreException;
@@ -18,17 +16,20 @@ import java.security.cert.X509Certificate;
 public class A3Pkcs11 implements TipoKeyStore{
 	
 	private KeyStore keyStore;
+	private LocalDriver driver;
 	
-	public A3Pkcs11() {
+	public A3Pkcs11( LocalDriver driver ) {
+		this.driver = driver;
 	}
 	
-	public A3Pkcs11(char[] senha, Local driver) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
-		load(senha, driver, null);
+	public A3Pkcs11(char[] senha, LocalDriver driver) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+		this.driver = driver;
+		load(senha);
 	}
 	
 	
 	@Override
-	public void load(char[] senha, Local driver, InputStream fileCertificado) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public void load(char[] senha) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		
 	
 		//Provider provider = new sun.security.pkcs11.SunPKCS11(driver.config());

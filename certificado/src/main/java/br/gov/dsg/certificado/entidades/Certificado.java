@@ -116,7 +116,7 @@ public class Certificado {
 	
 	public String emitidoPor() {
 		if (this.certificate.getIssuerDN() != null) {
-			String dn = this.certificate.getSubjectDN().toString();
+			String dn = this.certificate.getIssuerDN().toString();
 			dn = dn.substring(dn.indexOf("CN=") + 3);
 			if (dn.indexOf(',') == -1) {
 				return dn;

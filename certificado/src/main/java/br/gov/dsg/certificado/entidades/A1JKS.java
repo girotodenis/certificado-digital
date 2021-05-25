@@ -15,9 +15,14 @@ public class A1JKS implements TipoKeyStore{
 
 	private KeyStore keyStore;
 	private char[] senha;
+	private InputStream fileCertificado;
+	
+	public A1JKS(InputStream fileCertificado) {
+		this.fileCertificado = fileCertificado;
+	}
 	
 	@Override
-	public void load(char[] senha, Local driver, InputStream fileCertificado) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
+	public void load(char[] senha) throws KeyStoreException, NoSuchAlgorithmException, CertificateException, IOException {
 		this.senha = senha;
 		keyStore = KeyStore.getInstance("JKS");
 		keyStore.load(fileCertificado, senha);

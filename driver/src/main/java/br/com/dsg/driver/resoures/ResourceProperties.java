@@ -4,12 +4,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.com.dsg.driver.entidade.DriverA3;
-import br.gov.dsg.certificado.entidades.Local;
 
 public class ResourceProperties implements Resource {
 
 	@Override
-	public List<Local> todosDrivers() {
+	public List<DriverA3> todosDrivers() {
 		return DriversA3Util.keys().stream().map(nomeDriver -> new DriverA3(
 				nomeDriver, 
 				DriversA3Util.get(nomeDriver),
@@ -19,12 +18,12 @@ public class ResourceProperties implements Resource {
 	}
 
 	@Override
-	public void salvarPadrao(Local driver) {
+	public void salvarPadrao(DriverA3 driver) {
 		DriversA3Util.setPadrao(driver.getNome());
 	}
 
 	@Override
-	public void remover(Local item) {
+	public void remover(DriverA3 item) {
 		DriversA3Util.remover(item.getNome());
 	}
 
