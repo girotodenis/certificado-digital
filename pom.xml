@@ -11,6 +11,7 @@
 		<module>driver</module>
 		<module>certificado</module>
 		<module>ui-a3-seletor</module>
+		<module>assinatura</module>
 	</modules>
 	
 	<properties>

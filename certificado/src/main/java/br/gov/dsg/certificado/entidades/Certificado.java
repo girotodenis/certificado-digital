@@ -80,15 +80,22 @@ public class Certificado {
 	}
 	
 	public String getCadeiaCertificado() throws IllegalStateException {
-		String cadeiaCertificado = null;
+		Certificate certificateCompleto = getCertificate();
+		return convertToBase64PEMString(certificateCompleto, true);
+	}
+
+
+	public Certificate getCertificate() {
+		Certificate certificateCompleto = null;
 		for (Certificate certificate : getCertificateChain()) {
 			//Pega a cadeia de certificado do certificado que assinou o documento
 			String cn = extractedCN(((X509Certificate)certificate).getSubjectDN().toString());
 			if(this.emitidoPara().equalsIgnoreCase(cn)) {
-				cadeiaCertificado = convertToBase64PEMString(certificate, true);
+				certificateCompleto = certificate;
+				break;
 			}
 		}
-		return cadeiaCertificado;
+		return certificateCompleto;
 	}
 	
 	public boolean isValido() {
