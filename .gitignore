@@ -30,3 +30,7 @@ ui-a3-seletor/test-output/
 ui-a3-seletor/config/drivers_carregados.properties
 
 ui-a3-seletor/config/
+
+ui-a3-seletor/log/
+
+ui-a3-seletor/logs/
