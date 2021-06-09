@@ -9,14 +9,14 @@
 	</parent>
 	<artifactId>ui-a3-seletor</artifactId>
 
-<!-- 	<repositories> -->
-<!-- 		<repository> -->
-<!-- 			<id>my-repo2</id> -->
-<!-- 			<name>your custom repo</name> -->
-<!-- 			<url>https://raw.github.com/SpinyOwl/repo/releases</url> -->
-<!-- 		</repository> -->
-<!-- 	</repositories> -->
-	
+	<!-- <repositories> -->
+	<!-- <repository> -->
+	<!-- <id>my-repo2</id> -->
+	<!-- <name>your custom repo</name> -->
+	<!-- <url>https://raw.github.com/SpinyOwl/repo/releases</url> -->
+	<!-- </repository> -->
+	<!-- </repositories> -->
+
 	<repositories>
 		<repository>
 			<id>repo-dsg</id>
@@ -24,13 +24,13 @@
 			<url>https://maven.pkg.github.com/girotodenis/repo</url>
 		</repository>
 	</repositories>
-	
+
 	<distributionManagement>
-	   <repository>
-	     <id>github</id>
-	     <name>GitHub OWNER Apache Maven Packages</name>
-	     <url>https://maven.pkg.github.com/girotodenis/repo</url>
-	   </repository>
+		<repository>
+			<id>github</id>
+			<name>GitHub OWNER Apache Maven Packages</name>
+			<url>https://maven.pkg.github.com/girotodenis/repo</url>
+		</repository>
 	</distributionManagement>
 
 	<dependencies>
@@ -50,8 +50,49 @@
 		<dependency>
 			<groupId>br.com.dsg</groupId>
 			<artifactId>swing-ui</artifactId>
-			<version>1.0.1-SNAPSHOT</version>
+			<version>0.1.2-SNAPSHOT</version>
 		</dependency>
 
 	</dependencies>
+	<build>
+
+		<plugins>
+			<!-- JAR EXTERNAL LIBS -->
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<classpathPrefix>libs/</classpathPrefix>
+							<mainClass>br.com.dsg.swing.Main</mainClass>
+						</manifest>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>install</phase>
+						<goals>
+							<goal>copy-dependencies</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>
+								${project.build.directory}/libs
+							</outputDirectory>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+
+
+		</plugins>
+	</build>
 </project>

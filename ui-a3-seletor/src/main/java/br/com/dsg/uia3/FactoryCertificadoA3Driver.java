@@ -21,8 +21,11 @@ public class FactoryCertificadoA3Driver {
 		IDriverServices driverServices = new DriverService(); 
 		
 		return new CertificadoService(
-				new SwingSelecaoTipoCertificadoHandler(driverServices)
+				new SelecionadorHandler(driverServices)
 		);
+//		return new CertificadoService(
+//				new SwingSelecaoTipoCertificadoHandler(driverServices)
+//				);
 	}
 
 

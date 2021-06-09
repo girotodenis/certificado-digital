@@ -103,7 +103,7 @@ public class Certificado {
 		Date notAfter = this.certificate.getNotAfter();
 		Date now = new Date();
 		if(now.before(notBefore) || now.after(notAfter)) {
-			//log.infof("Certificado da KeyStore.Alias %s está fora do prazo de validade", alias);
+			//LOG.debugf("Certificado da KeyStore.Alias %s está fora do prazo de validade", alias);
 			return false;
 		}
 		return true;
