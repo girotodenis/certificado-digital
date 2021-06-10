@@ -30,7 +30,7 @@ public class CertificadoService {
 	 * Recuperar a lista de certificados digitais instalados com as
 	 * informacões do certificado, ver a classe Certificado.
 	 */
-	private List<Certificado> certificados(TipoKeyStore tipoKeyStore) {
+	public List<Certificado> certificados(TipoKeyStore tipoKeyStore) {
 		List<Certificado> listCertificado = new ArrayList<>();
 		try {
 			KeyStore keyStore = tipoKeyStore.getKeyStore();

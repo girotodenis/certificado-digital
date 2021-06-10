@@ -1,4 +1,4 @@
-package br.com.dsg.uia3;
+package uia3.outros;
 
 import org.joml.Vector2i;
 import org.liquidengine.legui.DefaultInitializer;

@@ -1,4 +1,4 @@
-package br.com.dsg.uia3;
+package br.com.dsg.uia3.swing;
 
 import java.awt.Color;
 import java.awt.GridLayout;

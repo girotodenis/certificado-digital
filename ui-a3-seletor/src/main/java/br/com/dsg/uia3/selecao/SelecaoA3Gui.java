@@ -1,4 +1,4 @@
-package br.com.dsg.uia3;
+package br.com.dsg.uia3.selecao;
 
 import org.liquidengine.legui.component.Button;
 import org.liquidengine.legui.component.Dialog;

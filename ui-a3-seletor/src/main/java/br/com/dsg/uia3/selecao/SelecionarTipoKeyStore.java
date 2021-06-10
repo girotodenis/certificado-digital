@@ -1,4 +1,4 @@
-package br.com.dsg.uia3;
+package br.com.dsg.uia3.selecao;
 
 import br.gov.dsg.certificado.entidades.TipoKeyStore;
 

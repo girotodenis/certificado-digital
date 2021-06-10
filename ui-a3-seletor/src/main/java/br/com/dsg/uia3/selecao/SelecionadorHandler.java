@@ -1,6 +1,7 @@
-package br.com.dsg.uia3;
+package br.com.dsg.uia3.selecao;
 
 import br.com.dsg.driver.IDriverServices;
+import br.com.dsg.legui.controller.LeGuiController;
 import br.com.dsg.legui.controller.StartLeGui;
 import br.com.dsg.legui.controller.eventos.EventAdicionarItemMenu;
 import br.gov.dsg.certificado.CarregadorKeyStore;
@@ -19,7 +20,8 @@ public class SelecionadorHandler implements CarregadorKeyStore{
 	public TipoKeyStore tipoKeyStore() {
 		
 		
-		StartLeGui.get(800, 600, "Seleção Certificado A3").abrirFecharMenuPadrao()
+		StartLeGui.get(600, 200, "Seleção Certificado A3")
+		//.abrirFecharMenuPadrao()
 		.addItemMenu(
 				new EventAdicionarItemMenu(
 						"Selecionar Certificado", 
@@ -27,11 +29,14 @@ public class SelecionadorHandler implements CarregadorKeyStore{
 						(controllerPai) -> new ControllerSelecaoA3(
 								controllerPai, 
 								driverServices,
-								(keyStore)-> tipoKeyStore = keyStore
-						), 
+								(keyStore)-> {
+									tipoKeyStore = keyStore;
+									LeGuiController.get().setAppFinalizado(true);
+								}), 
 						true
 					)
 		)
+		.menuFechado()
 		.start();
 		
 		return tipoKeyStore;

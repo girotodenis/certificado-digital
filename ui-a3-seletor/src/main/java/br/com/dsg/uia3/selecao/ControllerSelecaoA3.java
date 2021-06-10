@@ -1,4 +1,4 @@
-package br.com.dsg.uia3;
+package br.com.dsg.uia3.selecao;
 
 import java.io.IOException;
 import java.security.KeyStoreException;
@@ -24,8 +24,11 @@ public class ControllerSelecaoA3 extends AbstractController<SelecaoA3Gui> {
 	private IDriverServices service;
 	private SelecionarTipoKeyStore selecionarTipoKeyStore;
 
-	public ControllerSelecaoA3(AbstractController<?> controllerPai, IDriverServices service,
-			SelecionarTipoKeyStore selecionarTipoKeyStore) {
+//	public ControllerSelecaoA3(IDriverServices service, SelecionarTipoKeyStore selecionarTipoKeyStore) {
+//		this(LeGuiController.get(), service, selecionarTipoKeyStore);
+//	}
+	
+	public ControllerSelecaoA3(AbstractController<?> controllerPai, IDriverServices service, SelecionarTipoKeyStore selecionarTipoKeyStore) {
 		super(controllerPai, new SelecaoA3Gui());
 		this.service = service;
 		this.selecionarTipoKeyStore = selecionarTipoKeyStore;
@@ -65,15 +68,6 @@ public class ControllerSelecaoA3 extends AbstractController<SelecaoA3Gui> {
 		getPanel().selectBox
 				.addSelectBoxChangeSelectionEventListener((SelectBoxChangeSelectionEventListener<String>) event -> {
 					if (!event.getNewValue().toString().equals("Selecionar")) {
-//						Dialog dialog = new Dialog("SelectBox clicked", 300, 100);
-//						Label valueLabel = new Label("Value: " + event.getNewValue().toString(), 10, 10, 300, 20);
-//						dialog.getContainer().add(valueLabel);
-//						Label classLabel = new Label("Class: " + event.getNewValue().getClass().getName(), 10, 30, 300,
-//								20);
-//						dialog.getContainer().add(classLabel);
-//						dialog.show(event.getFrame());
-						
-						//l1.setText(c1.getSelectedItem().toString()); 
 			            service.todos().forEach(item -> {
 			            	if(item.getPath().equals(event.getNewValue())) {
 			            		service.driverPadrao(item);
@@ -86,14 +80,12 @@ public class ControllerSelecaoA3 extends AbstractController<SelecaoA3Gui> {
 			try {
 				char[] senha = getPanel().senhaTokem.getTextState().getText().toCharArray();
 				A3Pkcs11 tipoKeyStore = new A3Pkcs11(senha, service.driverPadrao());
-				//tipoKeyStore.getKeyStore().
 				
 				if(this.selecionarTipoKeyStore!=null) {
 					selecionarTipoKeyStore.selecionar(tipoKeyStore);
-					LeGuiController.get().setAppFinalizado(true);
 				}
 			} catch (KeyStoreException | NoSuchAlgorithmException | CertificateException | IOException e) {
-				e.printStackTrace();
+				handlerException(e);
 			}
 		});
 

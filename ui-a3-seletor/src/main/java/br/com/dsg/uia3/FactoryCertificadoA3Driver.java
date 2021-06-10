@@ -2,6 +2,7 @@ package br.com.dsg.uia3;
 
 import br.com.dsg.driver.DriverService;
 import br.com.dsg.driver.IDriverServices;
+import br.com.dsg.uia3.selecao.SelecionadorHandler;
 import br.gov.dsg.certificado.CertificadoService;
 
 public class FactoryCertificadoA3Driver {
