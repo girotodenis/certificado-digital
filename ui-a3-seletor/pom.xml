@@ -67,7 +67,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>libs/</classpathPrefix>
-							<mainClass>br.com.dsg.swing.Main</mainClass>
+							<mainClass>br.com.dsg.uia3.LeguiCertificate</mainClass>
 						</manifest>
 					</archive>
 				</configuration>

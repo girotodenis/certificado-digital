@@ -26,8 +26,13 @@ public class ControllerCertificado extends AbstractController<CertificadoA3> {
 			
 		});
 		
-		loadTipoKeyStore();
 		
+		
+		if(FactoryCertificado.get().isKeyStoreLoad()) {
+			getPanel().remove(getPanel().trocarCertificao);
+		}else {
+			loadTipoKeyStore();
+		}
 
 	}
 
